@@ -18,5 +18,8 @@ type Client struct {
 func NewClient() *Client {
 	return &Client{
 		Base: newBase(),
+
+		Logger: log.New().Apply(),
+		Http:   http.New().Build(),
 	}
 }
