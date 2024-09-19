@@ -3,6 +3,8 @@ package builder
 import (
 	"github.com/goexl/apollo/internal/core"
 	"github.com/goexl/apollo/internal/param"
+	"github.com/goexl/http"
+	"github.com/goexl/log"
 )
 
 type Client struct {
@@ -16,6 +18,20 @@ func NewClient() (client *Client) {
 	client.params = param.NewClient()
 
 	client.base = newBase(client, client.params.Base)
+
+	return
+}
+
+func (c *Client) Logger(logger log.Logger) (client *Client) {
+	c.params.Logger = logger
+	client = c
+
+	return
+}
+
+func (c *Client) Http(http *http.Client) (client *Client) {
+	c.params.Http = http
+	client = c
 
 	return
 }
