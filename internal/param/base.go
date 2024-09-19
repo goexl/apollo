@@ -7,6 +7,7 @@ type Base struct {
 
 func newBase() *Base {
 	return &Base{
-		Cluster: "default",
+		Cluster:    "default",
+		Namespaces: make([]string, 0, 2),
 	}
 }

@@ -44,11 +44,11 @@ func (c *Client) load(target any, namespace string, params *param.Loader) (err e
 
 func (c *Client) fill(ext string, content *string, target any) (err error) {
 	switch ext {
-	case "yml", "yaml":
+	case ".yml", ".yaml":
 		err = yaml.Unmarshal([]byte(*content), target)
-	case "json":
+	case ".json":
 		err = json.Unmarshal([]byte(*content), target)
-	case "xml":
+	case ".xml":
 		err = xml.Unmarshal([]byte(*content), target)
 	default:
 		err = json.Unmarshal([]byte(*content), target)
@@ -60,6 +60,9 @@ func (c *Client) fill(ext string, content *string, target any) (err error) {
 func (c *Client) send(namespace string, params *param.Loader) (content string, err error) {
 	request := c.params.Http.R()
 	form := make(map[string]string)
+	if nil != params.Context {
+		request.SetContext(params.Context)
+	}
 	if "" != params.Ip {
 		form["ip"] = params.Ip
 	}

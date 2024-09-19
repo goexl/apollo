@@ -2,13 +2,16 @@ package builder
 
 import (
 	"github.com/goexl/apollo/internal/core"
+	"github.com/goexl/apollo/internal/internal/builder"
 	"github.com/goexl/apollo/internal/param"
 	"github.com/goexl/http"
 	"github.com/goexl/log"
 )
 
+type client = builder.Base[Client]
+
 type Client struct {
-	*base[Client]
+	*client
 
 	params *param.Client
 }
@@ -17,7 +20,7 @@ func NewClient() (client *Client) {
 	client = new(Client)
 	client.params = param.NewClient()
 
-	client.base = newBase(client, client.params.Base)
+	client.client = builder.NewBase(client, client.params.Base)
 
 	return
 }
