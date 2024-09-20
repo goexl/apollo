@@ -10,6 +10,7 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/goexl/apollo/internal/core/internal/param"
 	"github.com/goexl/exception"
+	"github.com/goexl/gox/field"
 	"github.com/magiconair/properties"
 	"gopkg.in/yaml.v3"
 )
@@ -130,7 +131,7 @@ func (c *Client) do(url string, request *resty.Request, response any) (err error
 	} else if http.StatusUnauthorized == rsp.StatusCode() {
 		err = exception.New().Message("客户端未授权").Build()
 	} else if rsp.StatusCode() == http.StatusNotFound {
-		err = exception.New().Message("未找到配置项").Build()
+		c.params.Logger.Debug("未找到配置项", field.New("url", url))
 	} else if rsp.StatusCode() == http.StatusMethodNotAllowed {
 		err = exception.New().Message("接口访问方法不正确").Build()
 	} else if rsp.StatusCode() == http.StatusInternalServerError {
