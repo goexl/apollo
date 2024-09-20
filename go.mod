@@ -7,6 +7,7 @@ require (
 	github.com/goexl/exception v0.0.1
 	github.com/goexl/http v0.2.0
 	github.com/goexl/log v0.0.7
+	github.com/magiconair/properties v1.8.7
 	gopkg.in/yaml.v3 v3.0.1
 )
 

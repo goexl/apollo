@@ -10,6 +10,7 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/goexl/apollo/internal/core/internal/param"
 	"github.com/goexl/exception"
+	"github.com/magiconair/properties"
 	"gopkg.in/yaml.v3"
 )
 
@@ -25,7 +26,10 @@ func NewClient(params *param.Loader) *Client {
 
 func (c *Client) Load(target any, params *param.Loader) (err error) {
 	for _, namespace := range params.Namespaces {
-		err = c.load(target, namespace, params)
+		le := c.load(target, namespace, params)
+		if nil != le {
+			err = fmt.Errorf("加载配置出错：%q", le)
+		}
 	}
 
 	return
@@ -51,7 +55,11 @@ func (c *Client) fill(ext string, content *string, target any) (err error) {
 	case ".xml":
 		err = xml.Unmarshal([]byte(*content), target)
 	default:
-		err = json.Unmarshal([]byte(*content), target)
+		if property, lse := properties.LoadString(*content); nil != lse {
+			err = lse
+		} else {
+			err = property.Decode(target)
+		}
 	}
 
 	return
