@@ -1,6 +1,7 @@
 module github.com/goexl/apollo
 
-go 1.23
+go 1.24
+
 toolchain go1.24.1
 
 require (
@@ -13,4 +14,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
-require golang.org/x/net v0.33.0 // indirect
+require golang.org/x/net v0.40.0 // indirect
