@@ -8,7 +8,7 @@ require (
 	github.com/goexl/gox v1.9.2
 	github.com/goexl/http v0.3.2
 	github.com/goexl/log v0.1.0
-	github.com/magiconair/properties v1.8.10
+	github.com/magiconair/properties v1.18.11
 	gopkg.in/yaml.v3 v3.0.1
 )
 
